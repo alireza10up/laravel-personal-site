@@ -2,6 +2,10 @@
 
 @section('title' , 'علیرضا وحدانی | بک اند دولوپر')
 
+@section('description')
+فعال حوزه وب ! یک سالی هست که برنامه نویسی رو شروع کردم عاشق حل مسئله های کوچیک و بزرگ هستم همین دلیل موجب شد ، به سمت برنامه نویسی سوق داده بشم . شما میتونین در وب سایت شخصی من بیشتر با خودم و کارهام آشنا بشین ....
+@endsection
+
 @section('content')
     <div class="content">
         <!-- About -->
@@ -40,7 +44,8 @@
                 <!-- Case Item -->
                 <div class="col-12 col-lg-6 case-item-wrap">
                     <div class="case-item">
-                        <img class="case-item__icon" src="{{asset('assets/icons/icon-app.svg')}}" alt="برنامه نویسی اندروید"/>
+                        <img class="case-item__icon" src="{{asset('assets/icons/icon-app.svg')}}"
+                             alt="برنامه نویسی اندروید"/>
                         <h3 class="title title--h3">برنامه نویسی اندروید</h3>
                         <p class="case-item__caption">مدرن ترین و با کیفیت ترین طراحی ساخته شده در سطح حرفه ای. </p>
                     </div>
