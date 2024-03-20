@@ -4,6 +4,12 @@
 
 @section('content')
     <div class="content">
-        <h1>به زودی محتوا قرار میگیرد ...</h1>
+        <h3>به زودی محتوا قرار میگیرد ...</h3>
     </div>
+
+    <script>
+        setTimeout(function () {
+            location.replace('/');
+        }, 3000);
+    </script>
 @endsection

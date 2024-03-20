@@ -35,7 +35,7 @@
     {{--    <link rel="apple-touch-icon" sizes="114x114" href="../assets/images/favicons/apple-touch-icon-114x114.png">--}}
     {{--    <link rel="apple-touch-icon" sizes="72x72" href="../assets/images/favicons/apple-touch-icon-72x72.png">--}}
     {{--    <link rel="apple-touch-icon" sizes="57x57" href="../assets/images/favicons/apple-touch-icon-57x57.png">--}}
-    <link rel="shortcut icon" href="{{asset('assets/images/favicons/favicon.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('assets/images/favicons/favicon.ico')}}" type="image/png">
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/styles/style-rtl-demo.css')}}"/>

@@ -3,7 +3,7 @@
         <div class="avatar-wrap">
             <svg class="avatar avatar--180" viewBox="0 0 188 188">
                 <g class="avatar__box">
-                    <image xlink:href="../assets/img/avatar-1.jpg" height="100%" width="100%"/>
+                    <image xlink:href="../assets/img/avatar.jpg" height="100%" width="100%"/>
                 </g>
             </svg>
         </div>
