@@ -22,7 +22,7 @@
                 @forelse($resumes['education'] ?? [] as $educationLocation => $educationInformation)
                     <!-- Item -->
                     <article class="timeline__item">
-                        <h5 class="title title--h3 timeline__title">{{$educationLocation}}</h5>
+                        <h5 class="title title--h3 timeline__title">{{$educationLocation ?? ''}}</h5>
                         <span class="timeline__period">
                             {{$educationInformation['startDate'] ?? ''}} — {{$educationInformation['endDate'] ?? ''}}
                         </span>
@@ -43,7 +43,7 @@
                 @forelse($resumes['experiences'] ?? [] as $experienceLocation => $experienceInformation)
                     <!-- Item -->
                     <article class="timeline__item">
-                        <h5 class="title title--h3 timeline__title">{{$experienceLocation}}</h5>
+                        <h5 class="title title--h3 timeline__title">{{$experienceLocation ?? ''}}</h5>
                         <span class="timeline__period">
                             {{$experienceInformation['startDate'] ?? ''}} — {{$experienceInformation['endDate'] ?? ''}}
                         </span>
@@ -62,14 +62,15 @@
                 @forelse($resumes['hardSkills'] ?? [] as $skillName => $skillInformation)
                     <!-- Progress -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{$skillInformation['percentageOfExpertise']}}" aria-valuemin="0"
+                        <div class="progress-bar" role="progressbar"
+                             aria-valuenow="{{$skillInformation['percentageOfExpertise'] ?? ''}}" aria-valuemin="0"
                              aria-valuemax="100">
                             <div class="progress-text">
-                                <span>{{$skillName}}</span>
-                                <span>{{$skillInformation['percentageOfExpertise']}}%</span>
+                                <span>{{$skillName ?? ''}}</span>
+                                <span>{{$skillInformation['percentageOfExpertise'] ?? ''}}%</span>
                             </div>
                         </div>
-                        <div class="progress-text"><span>{{$skillName}}</span></div>
+                        <div class="progress-text"><span>{{$skillName ?? ''}}</span></div>
                     </div>
                 @empty
                     <h4>چیزی یافت نشد</h4>
@@ -84,14 +85,15 @@
                 @forelse($resumes['softSkills'] ?? [] as $skillName => $skillInformation)
                     <!-- Progress -->
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{$skillInformation['percentageOfExpertise']}}" aria-valuemin="0"
+                        <div class="progress-bar" role="progressbar"
+                             aria-valuenow="{{$skillInformation['percentageOfExpertise'] ?? ''}}" aria-valuemin="0"
                              aria-valuemax="100">
                             <div class="progress-text">
-                                <span>{{$skillName}}</span>
-                                <span>{{$skillInformation['percentageOfExpertise']}}%</span>
+                                <span>{{$skillName ?? ''}}</span>
+                                <span>{{$skillInformation['percentageOfExpertise'] ?? ''}}%</span>
                             </div>
                         </div>
-                        <div class="progress-text"><span>{{$skillName}}</span></div>
+                        <div class="progress-text"><span>{{$skillName ?? ''}}</span></div>
                     </div>
                 @empty
                     <h4>چیزی یافت نشد</h4>
