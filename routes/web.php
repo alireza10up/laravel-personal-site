@@ -7,10 +7,7 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/resume', function () {
-    // TODO Complete it
-    return view('pages.coming-soon');
-})->name('resume.index');
+Route::get('/resume', \App\Http\Controllers\ResumeController::class)->name('resume.index');
 
 Route::get('/portfolio', function () {
     // TODO Complete it
