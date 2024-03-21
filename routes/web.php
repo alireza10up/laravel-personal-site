@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    // TODO Complete it
-    return view('home');
-})->name('home');
+Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
 Route::get('/resume', \App\Http\Controllers\ResumeController::class)->name('resume.index');
 
