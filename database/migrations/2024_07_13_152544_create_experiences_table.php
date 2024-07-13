@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('resumes', function (Blueprint $table) {
+        Schema::create('experiences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('type', ['education', 'experiences']);
+            $table->enum('type', ['education', 'work']);
             $table->string('name');
             $table->string('start_date');
             $table->string('end_date')->nullable();
