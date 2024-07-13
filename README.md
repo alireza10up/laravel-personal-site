@@ -51,8 +51,15 @@ Table feedbacks {
   profile varchar
   name varchar
   description text
+  status feedbacks_status
   created_at timestamp
   updated_at timestamp
+}
+
+Enum feedbacks_status{
+  pending
+  approved
+  rejected
 }
 
 Table customers {
@@ -94,5 +101,4 @@ Table contacts {
   created_at timestamp
   updated_at timestamp
 }
-
 ```

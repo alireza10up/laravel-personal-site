@@ -23,7 +23,20 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->rules(['required', 'string', 'max:255']),
+                Forms\Components\TextInput::make('link')
+                    ->url()
+                    ->rules(['nullable', 'url']),
+                Forms\Components\FileUpload::make('logo')
+                    ->image()
+                    ->required()
+                    ->rules(['required', 'image', 'max:2048']),
+                Forms\Components\Hidden::make('user_id')
+                    ->default(auth()->id())
+                    ->required()
+                    ->rules(['required', 'exists:users,id']),
             ]);
     }
 
@@ -31,13 +44,26 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('logo')
+                    ->label('Logo')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('link')
+                    ->url(fn($record) => $record->link ?? '')
+                    ->label('Customer Link'),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('User Name')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -57,8 +57,7 @@ class FeedbackResource extends Resource
                 Tables\Columns\ImageColumn::make('profile')
                     ->label('Profile Picture')
                     ->sortable()
-                    ->searchable()
-                    ->size(40),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
@@ -81,7 +80,7 @@ class FeedbackResource extends Resource
                         'rejected' => 'Rejected',
                     ])
                     ->query(function (Builder $query, array $data) {
-                        if (isset($data['value']) && $data['value']  !== '') {
+                        if (!empty($data['value'])) {
                             return $query->where('status', $data['value']);
                         }
                         return $query;
@@ -119,6 +118,8 @@ class FeedbackResource extends Resource
     {
         return [
             'index' => Pages\ListFeedback::route('/'),
+            'create' => Pages\CreateFeedback::route('/create'),
+            'edit' => Pages\EditFeedback::route('/{record}/edit'),
         ];
     }
 }
