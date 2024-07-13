@@ -58,8 +58,7 @@ class ProjectResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-                Tables\Filters\Filter::make('user')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('user')),
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
