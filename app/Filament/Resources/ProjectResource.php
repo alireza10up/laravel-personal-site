@@ -17,13 +17,25 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->rules(['required', 'string', 'max:255']),
+                Forms\Components\TextInput::make('link')
+                    ->url()
+                    ->rules(['nullable', 'url']),
+                Forms\Components\Textarea::make('description')
+                    ->required()
+                    ->rules(['required', 'string']),
+                Forms\Components\Hidden::make('user_id')
+                    ->default(auth()->id())
+                    ->required()
+                    ->rules(['required', 'exists:users,id']),
             ]);
     }
 
@@ -31,18 +43,30 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->sortable()
+                    ->searchable()
+                    ->limit(10),
+                Tables\Columns\TextColumn::make('description')
+                    ->limit(10),
+                Tables\Columns\TextColumn::make('link')
+                    ->url(fn($record) => $record->link ?? '')
+                    ->label('Project Link'),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('User Name')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('user')
+                    ->query(fn(Builder $query): Builder => $query->whereHas('user')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

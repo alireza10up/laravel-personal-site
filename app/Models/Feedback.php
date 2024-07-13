@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     use HasFactory;
+
+    /**
+     * @var string
+     */
+    protected $table = 'feedbacks';
 }
