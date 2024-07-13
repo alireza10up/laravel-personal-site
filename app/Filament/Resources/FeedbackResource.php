@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class FeedbackResource extends Resource
 {
@@ -100,7 +102,9 @@ class FeedbackResource extends Resource
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
                     ->visible(fn($record) => $record->status === 'pending'),
-                Tables\Actions\DeleteAction::make()->visible(fn($record) => $record->status !== 'pending')
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn($record) => $record->status !== 'pending')
+                    ->before(fn($record) => Storage::disk('public')->delete($record->profile))
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

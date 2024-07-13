@@ -93,7 +93,6 @@ Table blog_posts {
 
 Table contacts {
   id int [pk, increment]
-  user_id int [ref: > users.id]
   name varchar
   email varchar
   subject varchar
