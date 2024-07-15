@@ -13,11 +13,11 @@ return new class extends Migration {
         Schema::create('site_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('profile');
+            $table->string('profile')->comment('save profile image in sidebar');
             $table->text('about_me');
-            $table->json('what_i_do');
-            $table->boolean('feedbacks_enabled')->default(true);
-            $table->boolean('customers_enabled')->default(true);
+            $table->json('what_i_do')->comment('items what i do save with type json keys(name , icon , description)');
+            $table->boolean('feedbacks_enabled')->default(true)->comment('for home page manage feedback section');
+            $table->boolean('customers_enabled')->default(true)->comment('for home page manage customers section');
             $table->timestamps();
         });
     }

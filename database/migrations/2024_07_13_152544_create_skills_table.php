@@ -13,9 +13,8 @@ return new class extends Migration {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('type', ['hard', 'soft']);
             $table->string('name');
-            $table->integer('percentage_of_expertise');
+            $table->json('items')->comment('save skills item in here keys(name , percentage_of_expertise)');
             $table->timestamps();
         });
     }

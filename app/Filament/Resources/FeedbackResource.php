@@ -58,9 +58,7 @@ class FeedbackResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('profile')
-                    ->label('Profile Picture')
-                    ->sortable()
-                    ->searchable(),
+                    ->label('Profile Picture'),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
