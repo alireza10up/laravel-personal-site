@@ -28,6 +28,7 @@ class FeedbackResource extends Resource
                 Forms\Components\FileUpload::make('profile')
                     ->image()
                     ->required()
+                    ->directory('profiles')
                     ->rules(['required', 'image', 'max:2048']),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -104,7 +105,6 @@ class FeedbackResource extends Resource
                     ->visible(fn($record) => $record->status === 'pending'),
                 Tables\Actions\DeleteAction::make()
                     ->visible(fn($record) => $record->status !== 'pending')
-                    ->before(fn($record) => Storage::disk('public')->delete($record->profile))
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

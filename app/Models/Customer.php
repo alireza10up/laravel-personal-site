@@ -23,4 +23,15 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * when item delete it removing image in storage
+     *
+     * @return void
+     */
+    public static function boot(): void
+    {
+        parent::boot();
+        self::deleting(fn(Customer $customer) => Storage::disk('public')->delete($customer->logo));
+    }
 }
