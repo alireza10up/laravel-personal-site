@@ -87,6 +87,7 @@ Table blog_posts {
   user_id int [ref: > users.id]
   title varchar
   content text
+  thumbnail varchar
   created_at timestamp
   updated_at timestamp
 }

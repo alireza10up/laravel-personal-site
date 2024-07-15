@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BlogPostResource\Pages;
-use App\Filament\Resources\BlogPostResource\RelationManagers;
 use App\Models\BlogPost;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,7 +10,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
+use function PHPUnit\Framework\directoryExists;
 
 class BlogPostResource extends Resource
 {
@@ -23,26 +23,65 @@ class BlogPostResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->rules(['required', 'string', 'max:255']),
+                Forms\Components\RichEditor::make('content')
+                    ->required()
+                    ->rules(['required', 'string']),
+                Forms\Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('thumbnails ')
+                    ->rules(['nullable', 'image', 'max:2048']),
+                Forms\Components\Hidden::make('user_id')
+                    ->default(auth()->id())
+                    ->required()
+                    ->rules(['required', 'exists:users,id']),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->sortable()
+                    ->size(50),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('User Name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()->before(function ($record) {
+                    if ($record->thumbnail) {
+                        Storage::disk('public')->delete($record->thumbnail);
+                    }
+
+                    /**
+                     * search and destroy image post
+                     */
+
+                    preg_match_all('/<img src="([^"]+)"[^>]*>/', $record->content, $matches);
+                    foreach ($matches[1] as $imagePath) {
+                        $path = str_replace(url('/storage'), '', $imagePath);
+                        Storage::disk('public')->delete($path);
+                    }
+                }),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

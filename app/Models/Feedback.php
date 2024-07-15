@@ -29,4 +29,15 @@ class Feedback extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * when item delete it removing image in storage
+     *
+     * @return void
+     */
+    public static function boot(): void
+    {
+        parent::boot();
+        self::deleting(fn(Feedback $feedback) => Storage::disk('public')->delete($feedback->profile));
+    }
 }
