@@ -33,6 +33,7 @@ class CustomerResource extends Resource
                 Forms\Components\FileUpload::make('logo')
                     ->image()
                     ->required()
+                    ->directory('logos')
                     ->rules(['required', 'image', 'max:2048']),
                 Forms\Components\Hidden::make('user_id')
                     ->default(auth()->id())
