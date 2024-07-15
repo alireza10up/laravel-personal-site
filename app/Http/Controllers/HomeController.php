@@ -17,10 +17,9 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request): Factory|View|Application
     {
-        $settings = SiteSetting::first();
         $feedbacks = Feedback::where('status', 'approved')->get();
         $customers = Customer::all();
 
-        return view('home', compact('settings', 'feedbacks', 'customers'));
+        return view('home', compact('feedbacks', 'customers'));
     }
 }

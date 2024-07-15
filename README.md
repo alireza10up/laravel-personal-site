@@ -95,6 +95,10 @@ Table site_settings {
   user_id int [ref: > users.id]
   profile string // save profile image in sidebar
   aboute_me text
+  social_media json // name , link , icon_class
+  address string
+  email string
+  telegram string
   what_i_do json // name , icon , description
   feedbacks_enabled bool // for home page manage feedback section
 }
