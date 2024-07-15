@@ -14,7 +14,7 @@ class SiteSetting extends Model
      * @var string[]
      */
     protected $fillable = [
-        'user_id', 'profile', 'about_me', 'what_i_do', 'feedbacks_enabled', 'customers_enabled'
+        'about_me', 'what_i_do', 'feedbacks_enabled', 'customers_enabled', 'profile_picture', 'social_media', 'address', 'email', 'telegram'
     ];
 
     /**
@@ -22,6 +22,7 @@ class SiteSetting extends Model
      */
     protected $casts = [
         'what_i_do' => 'array',
+        'social_media' => 'array',
         'feedbacks_enabled' => 'boolean',
         'customers_enabled' => 'boolean',
     ];

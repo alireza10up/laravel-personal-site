@@ -3,7 +3,7 @@
         <div class="avatar-wrap">
             <svg class="avatar avatar--180" viewBox="0 0 188 188">
                 <g class="avatar__box">
-                    <image xlink:href="../assets/img/avatar.jpg" height="100%" width="100%"/>
+                    <image xlink:href="{{ asset('storage/' . $settings->profile_picture) }}" height="100%" width="100%"/>
                 </g>
             </svg>
         </div>
@@ -13,30 +13,22 @@
 
             <!-- Social -->
             <div class="social">
-                <a class="social__link" href="https://www.instagram.com/alireza10up/"><i class="font-icon icon-instagram"></i></a>
-                <a class="social__link" href="https://github.com/alireza10up/"><i class="font-icon icon-github"></i></a>
-                <a class="social__link" href="https://www.linkedin.com/in/alireza10up/"><i class="font-icon icon-linkedin2"></i></a>
+                @foreach($settings->social_media as $social)
+                    <a class="social__link" href="{{ $social['link'] }}"><i class="font-icon {{ $social['icon_class'] }}"></i></a>
+                @endforeach
             </div>
         </div>
 
         <ul class="contact-block">
-            {{--            <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="Birthday">--}}
-            {{--                <i class="font-icon icon-calendar2"></i>25 آبان 1367--}}
-            {{--            </li>--}}
             <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="Address">
-                <i class="font-icon icon-map-pin"></i>ایران - مشهد
+                <i class="font-icon icon-map-pin"></i>{{ $settings->address }}
             </li>
             <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="E-mail">
-                <a href="mailto:toolsalireza10up@mail.com"><i class="font-icon icon-mail"></i>toolsalireza10up@gmail.com</a>
+                <a href="mailto:{{ $settings->email }}"><i class="font-icon icon-mail"></i>{{ $settings->email }}</a>
             </li>
-            {{--            <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="Phone">--}}
-            {{--                <i class="font-icon icon-smartphone"></i>09123456789--}}
-            {{--            </li>--}}
             <li class="contact-block__item" data-toggle="tooltip" data-placement="top" title="telegram">
-                <a href="https://t.me/alireza10up"><i class="font-icon icon-reply"></i>alireza10up@</a>
+                <a href="https://t.me/{{ $settings->telegram }}"><i class="font-icon icon-reply"></i>{{ $settings->telegram }}</a>
             </li>
         </ul>
-
-        {{--<a class="btn" href="#"><i class="font-icon icon-download"></i> دانلود رزومه</a>--}}
     </div>
 </aside>

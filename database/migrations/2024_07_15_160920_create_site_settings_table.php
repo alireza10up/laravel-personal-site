@@ -15,6 +15,10 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('profile')->comment('save profile image in sidebar');
             $table->text('about_me');
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('telegram')->nullable();
+            $table->json('social_media')->nullable()->comment('social item save with type json keys(name , link , icon_class');
             $table->json('what_i_do')->comment('items what i do save with type json keys(name , icon , description)');
             $table->boolean('feedbacks_enabled')->default(true)->comment('for home page manage feedback section');
             $table->boolean('customers_enabled')->default(true)->comment('for home page manage customers section');
