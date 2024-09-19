@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExperienceResource\Pages;
-use App\Filament\Resources\ExperienceResource\RelationManagers;
 use App\Models\Experience;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ExperienceResource extends Resource
 {
@@ -23,59 +21,50 @@ class ExperienceResource extends Resource
     {
         return $form->schema([
             Forms\Components\TextInput::make('name')->required()->rules(['required', 'string', 'max:128']),
-            Forms\Components\Select::make('type')->options(['education' => 'Education', 'work' => 'Work'])->required()->rules(['required', 'in:education,work']),
-            Forms\Components\DatePicker::make('start_date')->maxDate(now())->required()->rules(['required', 'date']),
-            Forms\Components\DatePicker::make('end_date')->rules(['nullable', 'date']),
-            Forms\Components\Textarea::make('description')->rules(['nullable', 'max:512']),
-            Forms\Components\Hidden::make('user_id')->default(auth()->id())->required()->rules(['required', 'exists:users,id']),
-        ]);
+            Forms\Components\FileUpload::make('icon')->required()->directory('icons')->rules(['required', 'image', 'max:2048']),
+            Forms\Components\Repeater::make('experiences')
+                ->schema([
+                    Forms\Components\TextInput::make('name')->required()->rules(['required', 'string', 'max:128']),
+                    Forms\Components\DatePicker::make('start_date')->maxDate(now())->required()->rules(['required', 'date']),
+                    Forms\Components\DatePicker::make('end_date')->rules(['nullable', 'date']),
+                    Forms\Components\Textarea::make('description')->rules(['nullable', 'max:512'])
+                ])
+                ->required()
+                ->label('Experience')
+        ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('type')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable()->limit(10),
-                Tables\Columns\TextColumn::make('start_date')->sortable(),
-                Tables\Columns\TextColumn::make('end_date')->sortable(),
-                Tables\Columns\TextColumn::make('description')->limit(10),
-                Tables\Columns\TextColumn::make('user.name')->label('User Name')->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('icon'),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('User Name')
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
                     ->options([
-                        'education' => 'education',
-                        'experience' => 'experience',
-                    ]),
-                Tables\Filters\Filter::make('start_date')
-                    ->form([
-                        Forms\Components\DatePicker::make('start_date_from'),
-                        Forms\Components\DatePicker::make('start_date_to'),
+                        'education' => 'Education',
+                        'work' => 'Work',
                     ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when($data['start_date_from'], fn($query, $date) => $query->where('start_date', '>=', $date))
-                            ->when($data['start_date_to'], fn($query, $date) => $query->where('start_date', '<=', $date));
-                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

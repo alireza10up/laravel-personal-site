@@ -50,8 +50,7 @@ class CustomerResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('logo')
-                    ->label('Logo')
-                    ->sortable(),
+                    ->label('Logo'),
                 Tables\Columns\TextColumn::make('link')
                     ->url(fn($record) => $record->link ?? '')
                     ->label('Customer Link'),
