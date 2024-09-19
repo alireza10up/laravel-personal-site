@@ -31,7 +31,7 @@ class BlogPostResource extends Resource
                     ->rules(['required', 'string']),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->image()
-                    ->directory('thumbnails ')
+                    ->directory('thumbnails')
                     ->rules(['nullable', 'image', 'max:2048']),
                 Forms\Components\Hidden::make('user_id')
                     ->default(auth()->id())
@@ -49,7 +49,6 @@ class BlogPostResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('thumbnail')
                     ->label('Thumbnail')
-                    ->sortable()
                     ->size(50),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('User Name')
@@ -64,21 +63,7 @@ class BlogPostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()->before(function ($record) {
-                    if ($record->thumbnail) {
-                        Storage::disk('public')->delete($record->thumbnail);
-                    }
-
-                    /**
-                     * search and destroy image post
-                     */
-
-                    preg_match_all('/<img src="([^"]+)"[^>]*>/', $record->content, $matches);
-                    foreach ($matches[1] as $imagePath) {
-                        $path = str_replace(url('/storage'), '', $imagePath);
-                        Storage::disk('public')->delete($path);
-                    }
-                }),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

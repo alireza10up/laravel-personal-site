@@ -29,7 +29,7 @@
                         <p class="timeline__description">{{$educationInformation['description'] ?? ''}}</p>
                     </article>
                 @empty
-                    <h4>چیزی یافت نشد</h4>
+                    <h6>چیزی یافت نشد</h6>
                 @endforelse
             </div>
         </div>
@@ -50,7 +50,7 @@
                         <p class="timeline__description">{{$experienceInformation['description'] ?? ''}}</p>
                     </article>
                 @empty
-                    <h4>چیزی یافت نشد</h4>
+                    <h6>چیزی یافت نشد</h6>
                 @endforelse
             </div>
         </div>
@@ -73,7 +73,7 @@
                         <div class="progress-text"><span>{{$skillName ?? ''}}</span></div>
                     </div>
                 @empty
-                    <h4>چیزی یافت نشد</h4>
+                    <h6>چیزی یافت نشد</h6>
                 @endforelse
             </div>
         </div>
@@ -96,7 +96,7 @@
                         <div class="progress-text"><span>{{$skillName ?? ''}}</span></div>
                     </div>
                 @empty
-                    <h4>چیزی یافت نشد</h4>
+                    <h6>چیزی یافت نشد</h6>
                 @endforelse
             </div>
         </div>

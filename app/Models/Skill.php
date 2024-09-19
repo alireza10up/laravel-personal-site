@@ -12,5 +12,5 @@ class Skill extends Model
     /**
      * @var string[]
      */
-    protected $fillable = ['type', 'name', 'percentage_of_expertise', 'user_id'];
+    protected $fillable = ['name', 'skills', 'user_id'];
 }

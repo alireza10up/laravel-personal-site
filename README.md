@@ -3,7 +3,7 @@
 visit : [alireza10up.ir](https://alireza10up.ir)
 
 ## Database Design (dbdiagarm)
-```css
+```
 Table users {
   id int [pk, increment]
   name varchar
@@ -13,36 +13,24 @@ Table users {
   updated_at timestamp
 }
 
-Table resumes {
+Table experiences {
   id int [pk, increment]
   user_id int [ref: > users.id]
-  type resume_type
-  name varchar
-  start_date varchar
-  end_date varchar
-  description text
+  name string
+  icon string
+  experiences json // name , start time , end time , description
   created_at timestamp
   updated_at timestamp
 }
 
-Enum resume_type {
-  education 
-  sexperiences
-}
 
 Table skills {
   id int [pk, increment]
   user_id int [ref: > users.id]
-  type skills_type
   name varchar
-  percentage_of_expertise int
+  skills json // name , percentage_of_expertise
   created_at timestamp
   updated_at timestamp
-}
-
-Enum skills_type {
-  hard
-  soft
 }
 
 Table feedbacks {
@@ -100,5 +88,18 @@ Table contacts {
   message text
   created_at timestamp
   updated_at timestamp
+}
+
+Table site_settings {
+  id int [pk , increment]
+  user_id int [ref: > users.id]
+  profile string // save profile image in sidebar
+  aboute_me text
+  social_media json // name , link , icon_class
+  address string
+  email string
+  telegram string
+  what_i_do json // name , icon , description
+  feedbacks_enabled bool // for home page manage feedback section
 }
 ```
