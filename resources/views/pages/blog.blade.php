@@ -24,7 +24,7 @@
                 </div>
                 <div class="news-item__caption">
                     <h3 class="title title--h3">{{$post->title}}</h3>
-                    <p>{{Str::limit(strip_tags($post->content,30))}}</p>
+                    <p>{{Str::limit(html_entity_decode(strip_tags($post->content,30)))}}</p>
                 </div>
             </article>
             @endforeach
