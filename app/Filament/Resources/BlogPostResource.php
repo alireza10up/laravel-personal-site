@@ -28,6 +28,8 @@ class BlogPostResource extends Resource
                     ->rules(['required', 'string', 'max:255']),
                 Forms\Components\RichEditor::make('content')
                     ->required()
+                    ->extraAttributes([
+                        'class' => 'cursor-pointer'])
                     ->rules(['required', 'string']),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->image()
