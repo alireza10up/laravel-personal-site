@@ -29,4 +29,7 @@
             </article>
             @endforeach
         </div>
+        <div class="custom-pagination-container" style="display: flex; margin-top: 2rem">
+            {{ $posts->links() }}
+        </div>
 @endsection

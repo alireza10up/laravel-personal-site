@@ -413,3 +413,12 @@ body {
 }
 
 /*# sourceMappingURL=style-rtl.css.map */
+
+.custom-pagination-container{
+    display: flex;
+    margin-top: 2rem;
+}
+
+.custom-pagination-container nav{
+    margin:auto;
+}

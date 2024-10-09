@@ -11,7 +11,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        $posts = BlogPost::all();
+        $posts = BlogPost::paginate(10);
         return view('pages.blog', compact('posts'));
     }
     public function single(BlogPost $post)
