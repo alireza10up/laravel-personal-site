@@ -16,7 +16,7 @@
 
                                     </div>
                                     <div class="header-post__image-wrap">
-                                        <img class="cover ls-is-cached lazyloaded" src="../assets/img/image_02.jpg" alt="">
+                                        <img class="cover ls-is-cached lazyloaded" src="{{  url($post->thumbnail) }}" alt="">
                                     </div>
                                 </header>
                                 <div class="caption-post">
