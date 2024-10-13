@@ -16,6 +16,6 @@ class BlogPostSeeder extends Seeder
         }
 
         // Create blog posts
-        BlogPost::factory()->count(50)->create(); // Adjust the number as needed
+        BlogPost::factory()->count(20)->create(); // Adjust the number as needed
     }
 }
