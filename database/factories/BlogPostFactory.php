@@ -18,10 +18,11 @@ class BlogPostFactory extends Factory
         return [
             'user_id' => fake()->numberBetween(1, 1),
             'title' => fake()->sentence,
-            'content' => fake()->paragraphs,
-            'thumbnail' => fake()->imageUrl(),
+            'content' => implode("\n", fake()->paragraphs),
+            'thumbnail' => "https://picsum.photos/id/".fake()->numberBetween(1, 1050)."/330/224",
             'created_at' => now(),
             'updated_at' => now(),
         ];
     }
+
 }
