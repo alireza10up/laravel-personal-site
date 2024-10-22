@@ -470,27 +470,35 @@ $(document).ready(function() {
         }
     });
 
-    function submitForm(){
-        var name = $("#nameContact").val(),
-            email = $("#emailContact").val(),
-            message = $("#messageContact").val();
-			
-        var url = "assets/php/form-contact.php";
-		
+    function submitForm() {
+        var subject = $("#subjectContact").val();
+        var name = $("#nameContact").val();
+        var email = $("#emailContact").val();
+        var message = $("#messageContact").val();
+        var url = "/contact";
+        var token = $('meta[name="csrf-token"]').attr('content');
+    
         $.ajax({
             type: "POST",
             url: url,
-            data: "name=" + name + "&email=" + email + "&message=" + message,
-            success : function(text){
-                if (text == "success"){
+            data: {
+                _token: token,
+                subject: subject,
+                name: name,
+                email: email,
+                message: message,
+            },
+            success: function(response) {
+                if (response === "success") {
                     formSuccess();
                 } else {
                     formError();
-                    submitMSG(false,text);
+                    submitMSG(false, response);
                 }
             }
         });
     }
+    
 
     function formSuccess(){
         $("#contact-form")[0].reset();
