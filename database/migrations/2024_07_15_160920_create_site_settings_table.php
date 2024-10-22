@@ -12,6 +12,8 @@ return new class extends Migration {
     {
         Schema::create('site_settings', function (Blueprint $table) {
             $table->id();
+            //enforcing one row
+            $table->foreignId('lock',1)->default('1')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('profile')->nullable()->comment('save profile image in sidebar');
             $table->text('about_me')->nullable();

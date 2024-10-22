@@ -17,10 +17,9 @@ Route::get('/portfolio', function () {
     return view('pages.coming-soon');
 })->name('portfolio.index');
 
-Route::get('/contact', function () {
-    // TODO Complete it
-    return view('pages.coming-soon');
-})->name('contact.index');
+Route::get('/contact', \App\Http\Controllers\FeedbackController::class)->name('contact.index');
+
+Route::post('/contact', [\App\Http\Controllers\FeedbackController::class, 'create'])->name('contact.create');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post}', [BlogController::class, 'single'])->name('blog.single');
